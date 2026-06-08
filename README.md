@@ -4,9 +4,9 @@ Shared AI skills for AI coding assistants (Claude Code, etc).
 
 ## Kotlin Skills
 
-These skills are based on ideas and patterns showcased in [the-example](https://github.com/anderssv/the-example) — a reference codebase demonstrating idiomatic Kotlin practices for TDD, dependency injection, and type-safe validation.
+These skills originated from [the-example](https://github.com/anderssv/the-example) — a reference codebase demonstrating idiomatic Kotlin practices for TDD, dependency injection, and type-safe validation — and have been migrated here for independent installation and maintenance.
 
-The patterns come from years of real-world Kotlin development and are documented with examples in the-example's [doc/](https://github.com/anderssv/the-example/tree/main/doc) directory.
+The patterns come from years of real-world Kotlin development and are documented with examples in [the-example's doc/](https://github.com/anderssv/the-example/tree/main/doc) directory.
 
 ### Install
 
@@ -33,7 +33,7 @@ The kotlin-tdd skill includes detailed guides:
 
 ### Source
 
-All skills originate from patterns demonstrated in [the-example](https://github.com/anderssv/the-example):
+These skills were originally developed in [the-example](https://github.com/anderssv/the-example) and migrated here. The patterns are demonstrated in:
 
 - [TDD with Fakes](https://github.com/anderssv/the-example/blob/main/doc/tdd.md)
 - [Manual Dependency Injection](https://github.com/anderssv/the-example/blob/main/doc/manual-dependency-injection.md)
