@@ -48,6 +48,41 @@ Anti-patterns to catch:
 
 Data classes derive `equals`/`hashCode` from ALL constructor properties. This is wrong for entities with identity (database rows, domain objects with IDs where equality is by ID alone). Use data classes for value objects.
 
+## Sealed Classes and Interfaces
+
+- Prefer sealed classes/interfaces over enums when subclasses carry different data
+- Each subclass carries exactly the data it needs -- illegal states are unrepresentable
+- Never use `else` on exhaustive `when` over sealed hierarchies -- compiler catches missing cases at compile time
+- Use `sealed interface` when subclasses need independent class hierarchies
+
+## Value Classes
+
+- Use `@JvmInline value class` to prevent parameter swapping (e.g. `CustomerId` vs `ProductId`)
+- Value classes provide compile-time type safety with zero runtime overhead
+- `typealias` gives no type safety -- use it only to simplify complex generic types (e.g. `typealias EventHandler<T> = (T) -> Unit`)
+
+## Extension Functions
+
+- Prefer extension functions over utility/helper objects (`StringUtils.isPalindrome` → `String.isPalindrome()`)
+- Extensions should be conceptually "methods the type should have" -- restrict visibility to where needed
+- Avoid extensions on `Any`, or extensions that are unrelated to the receiver's domain
+- Core behavior → member function (participates in overriding). Cross-cutting/client-specific → extension (statically resolved)
+
+## Coroutines
+
+- `suspend` functions over callbacks
+- Scoped coroutines (`coroutineScope { }`) over `GlobalScope` -- avoids orphaned coroutines ignoring cancellation
+- `launch` for fire-and-forget; `async` only when you `await` the result
+- `runBlocking` only at top-level entry points (`main()`, tests, framework bridges)
+- `Flow` over callback-based streams -- integrates with cancellation and backpressure
+
+## String Handling
+
+- String templates (`"Hello, ${user.name}"`) over concatenation
+- `buildString { }` over `StringBuilder`
+- Kotlin string interpolation for logging -- SLF4J `{}` placeholders are a Java concern (avoid cost of string concatenation when log level disabled); in Kotlin, string templates are cheap and more readable
+- Multiline strings with `""".trimIndent()` over escaped `\n`
+
 ## Companion Objects
 
 Empty companion objects on data classes are intentional when test extension functions target them:
@@ -87,6 +122,10 @@ These are from the Kotlin coding conventions that are easy to miss:
 - Use `0..<n` over `0..n-1` for open-ended ranges
 - Single-expression functions: use `= expr` form, omit braces and `return`
 - For library code: always specify visibility and return types explicitly
+
+## Anti-Pattern Reference
+
+`references/anti-patterns.md` contains a comprehensive catalogue of before/after examples for all topics in this skill (nullability, scope functions, collections, data classes, sealed classes, value classes, extension functions, properties, coroutines, string handling, object declarations, DSL builders, default parameters). Load it when reviewing code or when you need concrete examples to back up a recommendation.
 
 ## Related Skills
 
